@@ -1,29 +1,10 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+     <v-navigation-drawer v-model="drawer" fixed app clipped  class="drawer-style" id="style-1">
+    <v-list dense class="pt-3 white--text" >
+    
+    </v-list>
+  </v-navigation-drawer>
     <v-app-bar
       :clipped-left="clipped"
       fixed
@@ -83,18 +64,28 @@
       :absolute="!fixed"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} - NewsAggregator | Source on GitHub</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import axios from 'axios'
+import Article from '../components/Article';
+import Sidebar from '../components/Sidebar' // import the SideMenu component
 export default {
+  components: {
+    Article,
+    Sidebar
+  },
   data () {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
+      articles: [],
+      api_key:'9ea1ab728d064e058f5615edc94bf515', 
+      drawer: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -110,8 +101,16 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'News Aggregator'
     }
-  }
+  },
+    async created() {
+    const config = {
+      headers: {
+        'Accept': 'application/json'
+      }
+    }
+
+}
 }
 </script>

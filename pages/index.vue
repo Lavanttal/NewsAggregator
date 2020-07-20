@@ -1,13 +1,7 @@
 <template>
   <div>
+    <Sidebar :drawer="true" :api_key="api_key" @selectsource="setResource" ></Sidebar>
     <h1>News Feed</h1>
-    <p>Change source</p>
-     <v-overflow-btn
-            class="my-2"
-            :items="source"
-            label="Source"
-            target="#dropdown-example"
-          ></v-overflow-btn>
        <Article :articles="articles"></Article>
       </div>
     </template>
@@ -15,9 +9,11 @@
 <script>
 import axios from "axios";
 import Article from '../components/Article';
+import Sidebar from '../components/Sidebar'; // import the SideMenu component
 export default {
   components: {
-    Article
+    Article,
+    Sidebar
   },
   head () {
     return {
@@ -32,8 +28,9 @@ export default {
   },
   data () {
     return {
-      source: ['TechCrunch', 'Reuters', 'Headlines NL', 'Headlines US'],
       articles: [],
+      api_key:'9ea1ab728d064e058f5615edc94bf515', 
+      drawer: false
     } 
   },
 
@@ -45,12 +42,26 @@ export default {
     }
 
     try {
-    const res = await axios.get('https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=9ea1ab728d064e058f5615edc94bf515', config);
+    const res = await axios.get('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=9ea1ab728d064e058f5615edc94bf515', config);
           this.articles = res.data.articles;
           console.log(this.articles);
     } catch (err) {
   console.log(err);
     }
-  }
+  },
+   //add the methodes events hadler with setResource() function
+      methods: {
+            setResource(source){             
+              axios.get('https://newsapi.org/v2/top-headlines?sources='+source+'&apiKey='+this.api_key)
+              .then(response => {
+                this.articles = response.data.articles
+                console.log(response.data)             
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+
+            }
+         }
 }
 </script>
