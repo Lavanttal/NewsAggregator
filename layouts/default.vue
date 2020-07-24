@@ -1,6 +1,6 @@
 <template>
-  <v-app dark>
-     <v-navigation-drawer v-model="drawer" fixed app clipped  class="drawer-style" id="style-1">
+     <v-app :dark="isDark">
+     <v-navigation-drawer v-model="drawer" fixed app clipped class="drawer-style" id="style-1">
     <v-list dense class="pt-3 white--text" >
     
     </v-list>
@@ -81,6 +81,7 @@ export default {
   data () {
     return {
       clipped: false,
+      isDark: false,
       drawer: false,
       fixed: false,
       articles: [],

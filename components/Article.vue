@@ -18,6 +18,9 @@
                 <v-card-text>
                   {{ article.description }}
                 </v-card-text>
+                <v-card-text class="font-italic">
+                  {{ article.content }}
+                </v-card-text>
                 <v-card-actions>
                   <v-btn disabled small color="normal">
                     {{article.source.name}}

@@ -1,7 +1,6 @@
 <template>
   <div>
     <Sidebar :drawer="true" :api_key="api_key" @selectsource="setResource" ></Sidebar>
-    <h1>News Feed</h1>
        <Article :articles="articles"></Article>
       </div>
     </template>
@@ -49,7 +48,7 @@ export default {
   console.log(err);
     }
   },
-   //add the methodes events hadler with setResource() function
+
       methods: {
             setResource(source){             
               axios.get('https://newsapi.org/v2/top-headlines?sources='+source+'&apiKey='+this.api_key)

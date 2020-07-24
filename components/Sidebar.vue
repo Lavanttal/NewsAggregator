@@ -1,6 +1,7 @@
 <template>
-  <v-navigation-drawer v-model="drawer" fixed app clipped  class="drawer-style" id="style-1">
+  <v-navigation-drawer v-model="drawer" fixed app clipped class="drawer-style">
     <v-list dense class="pt-3 white--text" >
+
       <v-chip
         color="primary"
         class="ma-2"
@@ -8,7 +9,7 @@
         :key="source.id"
         @click="selectSource(source.id)"
       >
-          <v-avatar size="5px">
+          <v-avatar size="3px">
                 <img
                   class="img-circle elevation-7 mb-1"
                   :src="getImgUrl(source.id)" />
@@ -19,6 +20,7 @@
           <v-card-title>{{ source.name }}</v-card-title>
       </v-chip>
     </v-list>
+      
   </v-navigation-drawer>
 </template>
 
@@ -35,15 +37,16 @@ export default {
 
   data: () => ({
     sources: [],
+    languages: [],
     errors: []
   }),
 
-  created () {
+created () {
     axios.get('https://newsapi.org/v2/sources?language=en&apiKey='+this.api_key)
       .then(response => {
         //this.articles = response.data.articles
         this.sources = response.data.sources
-        console.log(source.name);
+        this.languages = response.data.sources.language
 
       })
       .catch(e => {
@@ -59,7 +62,9 @@ export default {
       selectSource(source){
         this.$emit('selectsource',source)
       }
+  },
+  selectLanguage(language){
+        this.$emit('selectLanguage',language)
   }
-
 }
 </script>
